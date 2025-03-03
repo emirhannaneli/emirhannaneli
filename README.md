@@ -11,7 +11,7 @@
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
-<a href="https://linkedin.com/in/emirhan-naneli-8a5b21211" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="emirhan-naneli-8a5b21211" height="30" width="40" /></a>
+<a href="https://www.linkedin.com/in/emirhannaneli/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="emirhannaneli" height="30" width="40" /></a>
 <a href="https://stackoverflow.com/users/18353450" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg" alt="18353450" height="30" width="40" /></a>
 <a href="https://instagram.com/emirhnnaneli" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="emirhnnaneli" height="30" width="40" /></a>
 <a href="https://discord.gg/Emirman#1881" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg" alt="Emirman#1881" height="30" width="40" /></a>
