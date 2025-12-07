@@ -92,7 +92,28 @@
                         <label for="useSockJS" class="text-sm text-gray-300">Use SockJS (Recommended)</label>
                     </div>
 
-                    <div class="flex space-x-2 pt-2">
+                    <!-- Headers Section -->
+                    <div class="mt-2 border-t border-gray-700 pt-3">
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-xs text-gray-400">Connection Headers</label>
+                            <span class="text-[10px] text-gray-500">(e.g. Auth Tokens)</span>
+                        </div>
+                        <div class="flex space-x-2 mb-2">
+                            <input type="text" id="headerKey" placeholder="Key"
+                                class="w-1/3 bg-gray-900 border border-gray-600 rounded p-1.5 text-xs focus:border-blue-500 focus:outline-none text-gray-300">
+                            <input type="text" id="headerValue" placeholder="Value"
+                                class="flex-1 bg-gray-900 border border-gray-600 rounded p-1.5 text-xs focus:border-blue-500 focus:outline-none text-gray-300">
+                            <button onclick="addHeader()"
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-3 rounded text-xs transition shadow-md">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                        <div id="headersList" class="space-y-1 max-h-24 overflow-y-auto pr-1">
+                            <!-- Headers rendered here -->
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-2 pt-2 border-t border-gray-700 mt-2">
                         <button onclick="connect()" id="btnConnect"
                             class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition text-sm font-medium">
                             <i class="fa-solid fa-link mr-1"></i> Connect
@@ -179,6 +200,7 @@
     <script>
         let stompClient = null;
         let subscriptions = {}; // Map: topic -> subscriptionObject
+        let connectHeaders = {}; // Map: key -> value
 
         // UI Helpers
         const setConnectedState = (connected) => {
@@ -187,6 +209,9 @@
             const pubPanel = document.getElementById('publishPanel');
             const btnConnect = document.getElementById('btnConnect');
             const btnDisconnect = document.getElementById('btnDisconnect');
+            // Headers inputs disabling
+            const headerKey = document.getElementById('headerKey');
+            const headerValue = document.getElementById('headerValue');
 
             if (connected) {
                 statusEl.className = "px-4 py-2 rounded-full bg-green-900/50 text-green-400 border border-green-700 text-sm font-bold flex items-center";
@@ -200,6 +225,9 @@
 
                 btnDisconnect.disabled = false;
                 btnDisconnect.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                headerKey.disabled = true;
+                headerValue.disabled = true;
             } else {
                 statusEl.className = "px-4 py-2 rounded-full bg-red-900/50 text-red-400 border border-red-700 text-sm font-bold flex items-center";
                 statusEl.innerHTML = `<div class="w-2 h-2 rounded-full bg-red-500 mr-2 animate-pulse"></div> Disconnected`;
@@ -212,6 +240,9 @@
 
                 btnDisconnect.disabled = true;
                 btnDisconnect.classList.add('opacity-50', 'cursor-not-allowed');
+
+                headerKey.disabled = false;
+                headerValue.disabled = false;
             }
         };
 
@@ -249,6 +280,46 @@
             document.getElementById('consoleLog').innerHTML = '<div class="text-gray-500">Logs cleared.</div>';
         };
 
+        // --- Header Management ---
+        function addHeader() {
+            const keyEl = document.getElementById('headerKey');
+            const valEl = document.getElementById('headerValue');
+            const key = keyEl.value.trim();
+            const value = valEl.value.trim();
+
+            if (key && value) {
+                connectHeaders[key] = value;
+                keyEl.value = '';
+                valEl.value = '';
+                renderHeaders();
+                log(`Added Header: ${key}`, 'info');
+            } else {
+                log("Header key and value required", "warning");
+            }
+        }
+
+        function removeHeader(key) {
+            delete connectHeaders[key];
+            renderHeaders();
+        }
+
+        function renderHeaders() {
+            const list = document.getElementById('headersList');
+            list.innerHTML = '';
+            Object.keys(connectHeaders).forEach(key => {
+                const val = connectHeaders[key];
+                const div = document.createElement('div');
+                div.className = 'flex justify-between items-center bg-gray-900 px-2 py-1 rounded border border-gray-700 text-xs';
+                div.innerHTML = `
+                    <span class="text-blue-300 truncate mr-2 font-mono flex-1" title="${val}">${key}: <span class="text-gray-400">${val}</span></span>
+                    <button onclick="removeHeader('${key}')" class="text-red-500 hover:text-red-400 px-1">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
         // --- Core Stomp Functions ---
 
         function connect() {
@@ -261,6 +332,11 @@
             }
 
             log(`Connecting to: ${url} (SockJS: ${useSockJS})`, "info");
+
+            // Log headers if any
+            if (Object.keys(connectHeaders).length > 0) {
+                log(`Using Headers: ${JSON.stringify(connectHeaders)}`, "info");
+            }
 
             try {
                 if (useSockJS) {
@@ -276,7 +352,8 @@
                     // console.log(str); // Uncomment to see internal ping/pong in browser devtools
                 };
 
-                stompClient.connect({}, function (frame) {
+                // Pass the headers object here as the first argument
+                stompClient.connect(connectHeaders, function (frame) {
                     setConnectedState(true);
                     log(`Connected: ${frame}`, "success");
                 }, function (error) {
