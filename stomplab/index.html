@@ -480,8 +480,15 @@
                 // Not JSON, keep as string
             }
 
+            // HTML Escape to ensure tags are displayed as text
+            const safeBody = body.replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
             log(`Message Received [${topic}]`, "inbound");
-            log(`<pre class="text-xs ${isJson ? 'text-green-300' : 'text-white'} mt-1 bg-gray-900 p-2 rounded">${body}</pre>`, "inbound");
+            log(`<pre class="text-xs ${isJson ? 'text-green-300' : 'text-white'} mt-1 bg-gray-900 p-2 rounded overflow-x-auto">${safeBody}</pre>`, "inbound");
         }
 
         function renderSubscriptions() {
