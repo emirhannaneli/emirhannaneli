@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot WebSocket (Stomp) Debugger</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- SockJS & StompJS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <!-- Font Awesome (For Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Custom Scrollbar for Logs */
+        .log-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .log-container::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+
+        .log-container::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 4px;
+        }
+
+        .log-container::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            /* CSS3 */
+            white-space: -moz-pre-wrap;
+            /* Mozilla, since 1999 */
+            white-space: -pre-wrap;
+            /* Opera 4-6 */
+            white-space: -o-pre-wrap;
+            /* Opera 7 */
+            word-wrap: break-word;
+            /* Internet Explorer 5.5+ */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Header -->
+        <div class="col-span-1 lg:col-span-12 mb-4 flex justify-between items-center border-b border-gray-700 pb-4">
+            <div>
+                <h1 class="text-2xl font-bold text-green-400">
+                    <i class="fa-solid fa-plug-circle-bolt mr-2"></i>WebSocket Stomp Debugger
+                </h1>
+                <p class="text-gray-400 text-sm mt-1">Spring Boot SockJS & StompJS Test Tool</p>
+            </div>
+            <div id="connectionStatus"
+                class="px-4 py-2 rounded-full bg-red-900/50 text-red-400 border border-red-700 text-sm font-bold flex items-center">
+                <div class="w-2 h-2 rounded-full bg-red-500 mr-2 animate-pulse"></div>
+                Disconnected
+            </div>
+        </div>
+
+        <!-- Left Column: Controls -->
+        <div class="col-span-1 lg:col-span-4 space-y-6">
+
+            <!-- Connection Panel -->
+            <div class="bg-gray-800 rounded-lg p-5 shadow-lg border border-gray-700">
+                <h2 class="text-lg font-semibold mb-4 text-blue-400 border-b border-gray-700 pb-2">
+                    <i class="fa-solid fa-server mr-2"></i>Connection Settings
+                </h2>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Server URL (Endpoint)</label>
+                        <input type="text" id="urlInput" value="http://localhost:8080/ws"
+                            class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-sm focus:border-blue-500 focus:outline-none transition"
+                            placeholder="http://localhost:8080/ws">
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <input type="checkbox" id="useSockJS" checked
+                            class="w-4 h-4 text-blue-500 bg-gray-700 border-gray-600 rounded focus:ring-blue-600 ring-offset-gray-800">
+                        <label for="useSockJS" class="text-sm text-gray-300">Use SockJS (Recommended)</label>
+                    </div>
+
+                    <div class="flex space-x-2 pt-2">
+                        <button onclick="connect()" id="btnConnect"
+                            class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition text-sm font-medium">
+                            <i class="fa-solid fa-link mr-1"></i> Connect
+                        </button>
+                        <button onclick="disconnect()" id="btnDisconnect" disabled
+                            class="flex-1 bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2 px-4 rounded transition text-sm font-medium">
+                            <i class="fa-solid fa-unlink mr-1"></i> Disconnect
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subscribe Panel -->
+            <div class="bg-gray-800 rounded-lg p-5 shadow-lg border border-gray-700 opacity-50 pointer-events-none transition-opacity duration-300"
+                id="subscribePanel">
+                <h2 class="text-lg font-semibold mb-4 text-purple-400 border-b border-gray-700 pb-2">
+                    <i class="fa-solid fa-rss mr-2"></i>Subscription
+                </h2>
+                <div class="flex space-x-2 mb-4">
+                    <input type="text" id="subTopicInput" value="/topic/messages"
+                        class="flex-1 bg-gray-900 border border-gray-600 rounded p-2 text-sm focus:border-purple-500 focus:outline-none"
+                        placeholder="/topic/...">
+                    <button onclick="subscribe()"
+                        class="bg-purple-600 hover:bg-purple-700 text-white px-4 rounded transition text-sm">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+
+                <div class="text-xs text-gray-400 mb-2 uppercase tracking-wider">Active Subscriptions</div>
+                <div id="subscriptionsList" class="space-y-2 max-h-40 overflow-y-auto pr-1">
+                    <!-- Dynamic Subscriptions Here -->
+                    <div class="text-gray-500 text-sm italic text-center py-2">No active subscriptions.</div>
+                </div>
+            </div>
+
+            <!-- Publish Panel -->
+            <div class="bg-gray-800 rounded-lg p-5 shadow-lg border border-gray-700 opacity-50 pointer-events-none transition-opacity duration-300"
+                id="publishPanel">
+                <h2 class="text-lg font-semibold mb-4 text-yellow-400 border-b border-gray-700 pb-2">
+                    <i class="fa-regular fa-paper-plane mr-2"></i>Publish Message
+                </h2>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Destination</label>
+                        <input type="text" id="pubDestInput" value="/app/chat"
+                            class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-sm focus:border-yellow-500 focus:outline-none"
+                            placeholder="/app/...">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">JSON Payload</label>
+                        <textarea id="pubPayloadInput" rows="4"
+                            class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-sm font-mono focus:border-yellow-500 focus:outline-none text-green-300"
+                            placeholder='{"name": "test", "content": "hello"}'></textarea>
+                    </div>
+                    <button onclick="publish()"
+                        class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded transition text-sm font-medium">
+                        Send
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Column: Logs -->
+        <div
+            class="col-span-1 lg:col-span-8 flex flex-col h-[600px] lg:h-auto bg-gray-800 rounded-lg shadow-lg border border-gray-700 overflow-hidden">
+            <div class="bg-gray-750 p-3 border-b border-gray-700 flex justify-between items-center bg-gray-900">
+                <h2 class="text-sm font-mono text-gray-300">
+                    <i class="fa-solid fa-terminal mr-2"></i>Console Logs
+                </h2>
+                <button onclick="clearLogs()" class="text-xs text-gray-400 hover:text-white hover:underline">
+                    Clear
+                </button>
+            </div>
+            <div id="consoleLog"
+                class="flex-1 log-container overflow-y-auto p-4 font-mono text-sm space-y-2 bg-[#0d1117]">
+                <div class="text-gray-500">Waiting for logs...</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        let stompClient = null;
+        let subscriptions = {}; // Map: topic -> subscriptionObject
+
+        // UI Helpers
+        const setConnectedState = (connected) => {
+            const statusEl = document.getElementById('connectionStatus');
+            const subPanel = document.getElementById('subscribePanel');
+            const pubPanel = document.getElementById('publishPanel');
+            const btnConnect = document.getElementById('btnConnect');
+            const btnDisconnect = document.getElementById('btnDisconnect');
+
+            if (connected) {
+                statusEl.className = "px-4 py-2 rounded-full bg-green-900/50 text-green-400 border border-green-700 text-sm font-bold flex items-center";
+                statusEl.innerHTML = `<div class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div> Connected`;
+
+                subPanel.classList.remove('opacity-50', 'pointer-events-none');
+                pubPanel.classList.remove('opacity-50', 'pointer-events-none');
+
+                btnConnect.disabled = true;
+                btnConnect.classList.add('opacity-50', 'cursor-not-allowed');
+
+                btnDisconnect.disabled = false;
+                btnDisconnect.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                statusEl.className = "px-4 py-2 rounded-full bg-red-900/50 text-red-400 border border-red-700 text-sm font-bold flex items-center";
+                statusEl.innerHTML = `<div class="w-2 h-2 rounded-full bg-red-500 mr-2 animate-pulse"></div> Disconnected`;
+
+                subPanel.classList.add('opacity-50', 'pointer-events-none');
+                pubPanel.classList.add('opacity-50', 'pointer-events-none');
+
+                btnConnect.disabled = false;
+                btnConnect.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                btnDisconnect.disabled = true;
+                btnDisconnect.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        };
+
+        // Logger Function
+        const log = (message, type = 'info') => {
+            const consoleEl = document.getElementById('consoleLog');
+
+            // Clear initial message if exists
+            if (consoleEl.children.length === 1 && consoleEl.children[0].innerText === "Waiting for logs...") {
+                consoleEl.innerHTML = "";
+            }
+
+            const entry = document.createElement('div');
+            entry.className = "border-l-2 pl-2 py-1 animate-fade-in-up";
+
+            const time = new Date().toLocaleTimeString();
+            let colorClass = "text-gray-300";
+            let borderColor = "border-gray-500";
+            let icon = "";
+
+            if (type === 'success') { colorClass = "text-green-400"; borderColor = "border-green-500"; icon = "<i class='fa-solid fa-check mr-1'></i>"; }
+            else if (type === 'error') { colorClass = "text-red-400"; borderColor = "border-red-500"; icon = "<i class='fa-solid fa-circle-exclamation mr-1'></i>"; }
+            else if (type === 'warning') { colorClass = "text-yellow-400"; borderColor = "border-yellow-500"; icon = "<i class='fa-solid fa-triangle-exclamation mr-1'></i>"; }
+            else if (type === 'inbound') { colorClass = "text-cyan-300"; borderColor = "border-cyan-500"; icon = "<i class='fa-solid fa-arrow-down mr-1'></i>"; }
+            else if (type === 'outbound') { colorClass = "text-orange-300"; borderColor = "border-orange-500"; icon = "<i class='fa-solid fa-arrow-up mr-1'></i>"; }
+
+            entry.classList.add(borderColor);
+            entry.innerHTML = `<span class="text-gray-600 text-xs mr-2">[${time}]</span> <span class="${colorClass}">${icon} ${message}</span>`;
+
+            consoleEl.appendChild(entry);
+            consoleEl.scrollTop = consoleEl.scrollHeight; // Auto scroll
+        };
+
+        const clearLogs = () => {
+            document.getElementById('consoleLog').innerHTML = '<div class="text-gray-500">Logs cleared.</div>';
+        };
+
+        // --- Core Stomp Functions ---
+
+        function connect() {
+            const url = document.getElementById('urlInput').value.trim();
+            const useSockJS = document.getElementById('useSockJS').checked;
+
+            if (!url) {
+                log("Please enter a URL.", "error");
+                return;
+            }
+
+            log(`Connecting to: ${url} (SockJS: ${useSockJS})`, "info");
+
+            try {
+                if (useSockJS) {
+                    const socket = new SockJS(url);
+                    stompClient = Stomp.over(socket);
+                } else {
+                    stompClient = Stomp.client(url);
+                }
+
+                // Debug logs disabled in library to keep custom console clean, 
+                // or enable if you want internal logs:
+                stompClient.debug = (str) => {
+                    // console.log(str); // Uncomment to see internal ping/pong in browser devtools
+                };
+
+                stompClient.connect({}, function (frame) {
+                    setConnectedState(true);
+                    log(`Connected: ${frame}`, "success");
+                }, function (error) {
+                    log(`Connection Error: ${error}`, "error");
+                    setConnectedState(false);
+                });
+
+            } catch (e) {
+                log(`Critical Error: ${e.message}`, "error");
+                setConnectedState(false);
+            }
+        }
+
+        function disconnect() {
+            if (stompClient !== null) {
+                // Remove all subscriptions visually
+                subscriptions = {};
+                renderSubscriptions();
+
+                stompClient.disconnect(() => {
+                    log("Disconnected.", "warning");
+                    setConnectedState(false);
+                });
+            }
+        }
+
+        function subscribe() {
+            const topic = document.getElementById('subTopicInput').value.trim();
+
+            if (!topic || !stompClient || !stompClient.connected) return;
+
+            if (subscriptions[topic]) {
+                log(`Already subscribed to ${topic}.`, "warning");
+                return;
+            }
+
+            log(`Subscribing to: ${topic}...`, "info");
+
+            const subscription = stompClient.subscribe(topic, function (messageOutput) {
+                // Handle Incoming Message
+                handleIncomingMessage(topic, messageOutput);
+            });
+
+            subscriptions[topic] = subscription;
+            renderSubscriptions();
+            log(`Subscribed: ${topic}`, "success");
+        }
+
+        function unsubscribe(topic) {
+            if (subscriptions[topic]) {
+                subscriptions[topic].unsubscribe();
+                delete subscriptions[topic];
+                renderSubscriptions();
+                log(`Unsubscribed: ${topic}`, "warning");
+            }
+        }
+
+        function publish() {
+            const destination = document.getElementById('pubDestInput').value.trim();
+            const payloadStr = document.getElementById('pubPayloadInput').value.trim();
+
+            if (!destination) {
+                log("Destination cannot be empty.", "error");
+                return;
+            }
+
+            let payload = {};
+            try {
+                if (payloadStr) {
+                    payload = JSON.parse(payloadStr); // Validate JSON
+                }
+            } catch (e) {
+                log("Invalid JSON format!", "error");
+                return;
+            }
+
+            if (!stompClient || !stompClient.connected) {
+                log("No connection!", "error");
+                return;
+            }
+
+            stompClient.send(destination, {}, JSON.stringify(payload));
+            log(`Message sent -> ${destination}`, "outbound");
+            log(`<pre class="text-xs text-gray-500 mt-1">${JSON.stringify(payload, null, 2)}</pre>`, "outbound");
+        }
+
+        function handleIncomingMessage(topic, message) {
+            let body = message.body;
+            let isJson = false;
+            try {
+                const jsonBody = JSON.parse(body);
+                body = JSON.stringify(jsonBody, null, 2); // Pretty print
+                isJson = true;
+            } catch (e) {
+                // Not JSON, keep as string
+            }
+
+            log(`Message Received [${topic}]`, "inbound");
+            log(`<pre class="text-xs ${isJson ? 'text-green-300' : 'text-white'} mt-1 bg-gray-900 p-2 rounded">${body}</pre>`, "inbound");
+        }
+
+        function renderSubscriptions() {
+            const listEl = document.getElementById('subscriptionsList');
+            listEl.innerHTML = "";
+
+            const topics = Object.keys(subscriptions);
+
+            if (topics.length === 0) {
+                listEl.innerHTML = '<div class="text-gray-500 text-sm italic text-center py-2">No active subscriptions.</div>';
+                return;
+            }
+
+            topics.forEach(topic => {
+                const item = document.createElement('div');
+                item.className = "flex justify-between items-center bg-gray-700 p-2 rounded border border-gray-600 animate-pulse-once";
+                item.innerHTML = `
+                    <span class="text-sm font-mono text-purple-300 truncate" title="${topic}">${topic}</span>
+                    <button onclick="unsubscribe('${topic}')" class="text-red-400 hover:text-red-200 text-xs ml-2 px-2 py-1 bg-gray-800 rounded border border-gray-600 hover:border-red-400 transition">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                `;
+                listEl.appendChild(item);
+            });
+        }
+
+        // Add dummy animation class via JS just for init
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in-up {
+                animation: fadeInUp 0.3s ease-out forwards;
+            }
+        `;
+        document.head.appendChild(style);
+
+    </script>
+</body>
+
+</html>
