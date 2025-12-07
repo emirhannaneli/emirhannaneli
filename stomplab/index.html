@@ -359,7 +359,12 @@
 
             // Log headers if any
             if (Object.keys(connectHeaders).length > 0) {
-                log(`Using Headers: ${JSON.stringify(connectHeaders)}`, "info");
+                log(`Sending STOMP Headers (in CONNECT frame):`, "info");
+                Object.entries(connectHeaders).forEach(([key, val]) => {
+                    log(`&nbsp;&nbsp;<i class="fa-solid fa-angle-right text-[10px]"></i> ${key}: ${val}`, "info");
+                });
+            } else {
+                log(`Sending CONNECT Frame (No Headers)`, "info");
             }
 
             try {
