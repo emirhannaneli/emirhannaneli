@@ -35,6 +35,11 @@
             background: #6b7280;
         }
 
+        /* Smooth scrolling for the log container */
+        .log-container {
+            scroll-behavior: smooth;
+        }
+
         pre {
             white-space: pre-wrap;
             /* CSS3 */
@@ -194,8 +199,9 @@
         </div>
 
         <!-- Right Column: Logs -->
+        <!-- Fixed height set for LG screens to ensure scrolling works and it doesn't expand infinitely -->
         <div
-            class="col-span-1 lg:col-span-8 flex flex-col h-[600px] lg:h-auto bg-gray-800 rounded-lg shadow-lg border border-gray-700 overflow-hidden">
+            class="col-span-1 lg:col-span-8 flex flex-col h-[600px] lg:h-[800px] bg-gray-800 rounded-lg shadow-lg border border-gray-700 overflow-hidden">
             <div class="bg-gray-750 p-3 border-b border-gray-700 flex justify-between items-center bg-gray-900">
                 <h2 class="text-sm font-mono text-gray-300">
                     <i class="fa-solid fa-terminal mr-2"></i>Console Logs
@@ -295,7 +301,10 @@
             entry.innerHTML = `<span class="text-gray-600 text-xs mr-2">[${time}]</span> <span class="${colorClass}">${icon} ${message}</span>`;
 
             consoleEl.appendChild(entry);
-            consoleEl.scrollTop = consoleEl.scrollHeight; // Auto scroll
+            // Use setTimeout to ensure DOM is updated before scrolling
+            setTimeout(() => {
+                consoleEl.scrollTop = consoleEl.scrollHeight;
+            }, 0);
         };
 
         const clearLogs = () => {
