@@ -5,6 +5,7 @@ import { Nav } from "./nav";
 import { HeroEditorial } from "./hero-editorial";
 import { About } from "./about";
 import { Skills } from "./skills";
+import { Projects } from "./projects";
 // Section imports are added by later tasks:
 
 export function Portfolio({ content, locale }: { content: SiteContent; locale: LocaleCode }) {
@@ -17,6 +18,7 @@ export function Portfolio({ content, locale }: { content: SiteContent; locale: L
           <HeroEditorial content={content} />
           <About content={content} />
           <Skills content={content} />
+          <Projects content={content} />
           {/* ... sections added in Tasks 10–15 */}
         </main>
       </div>
