@@ -18,3 +18,14 @@ export interface SiteContent {
   footer: { note: string };
   glossary?: Partial<Record<TokenId, string>>;
 }
+
+import en from "./en";
+import tr from "./tr";
+import { deepMerge } from "../deep-merge";
+import type { LocaleCode } from "../i18n";
+
+const sources: { en: SiteContent } & Record<LocaleCode, DeepPartial<SiteContent>> = { en, tr };
+
+export function resolveContent(locale: LocaleCode): SiteContent {
+  return deepMerge(en, sources[locale]);
+}
