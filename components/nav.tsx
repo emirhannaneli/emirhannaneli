@@ -7,7 +7,7 @@ import { LocaleSwitcher } from "./locale-switcher";
 export function Nav({ content, locale }: { content: SiteContent; locale: LocaleCode }) {
   return (
     <div className="sticky top-[18px] z-50 flex justify-center px-5">
-      <nav aria-label="Primary" className="emn-panel-2 flex w-full max-w-[1120px] items-center justify-between gap-5 rounded-[18px] py-[11px] pl-5 pr-[14px]">
+      <nav aria-label="Primary" className="emn-nav relative flex w-full max-w-[1120px] items-center justify-between gap-5 rounded-[18px] py-[11px] pl-5 pr-[14px]">
         <a href="#top" className="flex items-center gap-[10px] no-underline" style={{ color: "var(--text)" }}>
           <span className="grid h-[30px] w-[30px] place-items-center rounded-[9px] font-display text-[15px] font-extrabold text-white" style={{ background: "linear-gradient(140deg,var(--accent),var(--accent-2))" }}>E</span>
           <span className="font-display text-[15px] font-bold tracking-tight">{profile.name}</span>
