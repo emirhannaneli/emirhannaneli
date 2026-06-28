@@ -21,10 +21,8 @@ export function BaseHtml({ lang, children }: { lang: LocaleCode; children: React
   };
   return (
     <html lang={lang} data-theme="dark" suppressHydrationWarning className={`${fontVars} antialiased`}>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
-      </head>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <a href="#main" className="emn-skip">Skip to content</a>
         <AnimPause />
         <ThemeProvider>{children}</ThemeProvider>
