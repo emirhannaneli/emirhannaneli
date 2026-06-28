@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { SiteContent } from "@/lib/content";
 import type { LocaleCode } from "@/lib/i18n";
 import { nav, profile } from "@/lib/data";
@@ -15,7 +16,7 @@ export function Nav({ content, locale }: { content: SiteContent; locale: LocaleC
       </svg>
       <nav aria-label="Primary" className="emn-nav relative flex w-full max-w-[1120px] items-center justify-between gap-5 rounded-[18px] py-[11px] pl-5 pr-[14px]">
         <a href="#top" className="flex items-center gap-[10px] no-underline" style={{ color: "var(--text)" }}>
-          <span className="grid h-[30px] w-[30px] place-items-center rounded-[9px] font-display text-[15px] font-extrabold text-white" style={{ background: "linear-gradient(140deg,var(--accent),var(--accent-2))" }}>E</span>
+          <Image src="/avatar.png" alt={profile.name} width={34} height={34} priority className="rounded-[10px] bg-white object-cover ring-1 ring-[var(--border-2)]" />
           <span className="font-display text-[15px] font-bold tracking-tight">{profile.name}</span>
         </a>
         <div className="emn-nav-links flex items-center gap-1">

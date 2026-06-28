@@ -11,6 +11,14 @@ export const viewport: Viewport = {
   ],
 };
 
+const KEYWORDS = [
+  profile.name, "Emirhan", "Naneli",
+  "Backend Developer", "Backend Geliştirici", "Software Engineer", "Yazılım Geliştirici",
+  "Java", "Kotlin", "Spring Boot", "Spring Cloud", "Microservices", "Mikroservis",
+  "REST API", "GraphQL", "PostgreSQL", "MongoDB", "Redis", "Apache Kafka", "RabbitMQ",
+  "Docker", "Kubernetes", "API", "Türkiye",
+];
+
 export function localeMetadata(locale: LocaleCode): Metadata {
   const c = resolveContent(locale);
   const og = locales.find((l) => l.code === locale)!.og;
@@ -18,7 +26,24 @@ export function localeMetadata(locale: LocaleCode): Metadata {
     metadataBase: new URL(profile.siteUrl),
     title: c.meta.title,
     description: c.meta.description,
+    applicationName: profile.name,
+    authors: [{ name: profile.name, url: profile.siteUrl }],
+    creator: profile.name,
+    publisher: profile.name,
+    keywords: KEYWORDS,
+    category: "technology",
     alternates: { canonical: localeHref(locale), languages: hreflang },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     openGraph: {
       type: "website",
       url: localeHref(locale),
@@ -29,5 +54,7 @@ export function localeMetadata(locale: LocaleCode): Metadata {
       alternateLocale: locales.filter((l) => l.code !== locale).map((l) => l.og),
     },
     twitter: { card: "summary_large_image", title: c.meta.title, description: c.meta.description },
+    formatDetection: { telephone: false, email: false, address: false },
+    appleWebApp: { capable: true, title: profile.name, statusBarStyle: "black-translucent" },
   };
 }

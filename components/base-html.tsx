@@ -1,23 +1,50 @@
-import type { LocaleCode } from "@/lib/i18n";
+import { localeHref, type LocaleCode } from "@/lib/i18n";
 import { fontVars } from "@/lib/fonts";
 import { ThemeProvider, THEME_SCRIPT } from "./theme-provider";
 import { AnimPause } from "./anim-pause";
-import { profile, socials } from "@/lib/data";
+import { profile, socials, skillGroups } from "@/lib/data";
 import { resolveContent } from "@/lib/content";
 
 export function BaseHtml({ lang, children }: { lang: LocaleCode; children: React.ReactNode }) {
   const c = resolveContent(lang);
+  const pageUrl = `${profile.siteUrl}${localeHref(lang)}`;
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: profile.name,
-    jobTitle: "Backend Developer",
-    url: profile.siteUrl,
-    image: `${profile.siteUrl}${profile.avatar}`,
-    email: profile.email,
-    sameAs: socials.filter((s) => s.id !== "site").map((s) => s.url),
-    description: c.about.body,
-    inLanguage: lang,
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": `${profile.siteUrl}/#person`,
+        name: profile.name,
+        jobTitle: "Backend Developer",
+        url: profile.siteUrl,
+        image: `${profile.siteUrl}${profile.avatar}`,
+        email: profile.email,
+        telephone: profile.phone,
+        address: { "@type": "PostalAddress", addressCountry: "TR" },
+        sameAs: socials.filter((s) => s.id !== "site").map((s) => s.url),
+        knowsAbout: skillGroups.flatMap((g) => [...g.items]),
+        description: c.about.body,
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${profile.siteUrl}/#website`,
+        url: profile.siteUrl,
+        name: profile.name,
+        inLanguage: lang,
+        publisher: { "@id": `${profile.siteUrl}/#person` },
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: c.meta.title,
+        description: c.meta.description,
+        inLanguage: lang,
+        isPartOf: { "@id": `${profile.siteUrl}/#website` },
+        about: { "@id": `${profile.siteUrl}/#person` },
+        primaryImageOfPage: `${profile.siteUrl}${profile.avatar}`,
+      },
+    ],
   };
   return (
     <html lang={lang} data-theme="dark" suppressHydrationWarning className={`${fontVars} antialiased`}>
