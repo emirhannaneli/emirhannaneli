@@ -2,13 +2,13 @@ import type { SiteContent } from "@/lib/content";
 import { marquee, profile } from "@/lib/data";
 import { icons } from "@/lib/icons";
 import { Reveal } from "./reveal";
-import { HeroSpotlight } from "./hero-spotlight";
+import { HeroAurora } from "./hero-aurora";
 
 export function HeroEditorial({ content }: { content: SiteContent }) {
   const { hero } = content;
   return (
     <header id="top" className="relative mx-auto max-w-[1120px] px-[clamp(20px,5vw,48px)] pt-[clamp(56px,9vw,110px)] pb-[clamp(40px,6vw,72px)]">
-      <HeroSpotlight />
+      <HeroAurora />
       <Reveal>
         <div className="mb-[18px] flex items-center gap-[14px] font-mono text-[12.5px] uppercase tracking-[.06em]" style={{ color: "var(--faint)" }}>
           <span className="h-px w-[34px]" style={{ background: "var(--border-2)" }} />{hero.kicker}
