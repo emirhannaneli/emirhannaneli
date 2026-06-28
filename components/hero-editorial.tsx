@@ -7,8 +7,9 @@ import { HeroAurora } from "./hero-aurora";
 export function HeroEditorial({ content }: { content: SiteContent }) {
   const { hero } = content;
   return (
-    <header id="top" className="relative mx-auto max-w-[1120px] px-[clamp(20px,5vw,48px)] pt-[clamp(56px,9vw,110px)] pb-[clamp(40px,6vw,72px)]">
+    <header id="top" className="relative -mt-[78px] w-full overflow-hidden pt-[clamp(128px,15vw,200px)] pb-[clamp(40px,6vw,72px)]">
       <HeroAurora />
+      <div className="relative mx-auto max-w-[1120px] px-[clamp(20px,5vw,48px)]">
       <Reveal>
         <div className="mb-[18px] flex items-center gap-[14px] font-mono text-[12.5px] uppercase tracking-[.06em]" style={{ color: "var(--faint)" }}>
           <span className="h-px w-[34px]" style={{ background: "var(--border-2)" }} />{hero.kicker}
@@ -46,6 +47,7 @@ export function HeroEditorial({ content }: { content: SiteContent }) {
           </div>
         </div>
       </Reveal>
+      </div>
     </header>
   );
 }

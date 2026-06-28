@@ -12,7 +12,12 @@ export function Reveal({ children, delay = 0, className }: { children: React.Rea
       { rootMargin: "0px 0px -10% 0px", threshold: 0.1 },
     );
     io.observe(el);
-    return () => io.disconnect();
+    // safety net: never leave content stuck hidden if the observer doesn't fire
+    const fallback = setTimeout(() => setShown(true), 1400);
+    return () => {
+      io.disconnect();
+      clearTimeout(fallback);
+    };
   }, []);
   return (
     <div ref={ref} data-reveal className={`${shown ? "is-visible" : ""} ${className ?? ""}`} style={{ transitionDelay: `${delay}ms` }}>

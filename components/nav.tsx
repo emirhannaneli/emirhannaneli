@@ -8,10 +8,9 @@ export function Nav({ content, locale }: { content: SiteContent; locale: LocaleC
   return (
     <div className="sticky top-[18px] z-50 flex justify-center px-5">
       <svg aria-hidden width="0" height="0" className="absolute">
-        <filter id="emn-liquid" x="-25%" y="-25%" width="150%" height="150%" colorInterpolationFilters="sRGB">
-          <feTurbulence type="fractalNoise" baseFrequency="0.013 0.016" numOctaves={2} seed={7} result="noise" />
-          <feGaussianBlur in="noise" stdDeviation="2.1" result="soft" />
-          <feDisplacementMap in="SourceGraphic" in2="soft" scale={36} xChannelSelector="R" yChannelSelector="G" />
+        <filter id="emn-liquid" x="-20%" y="-20%" width="140%" height="140%" colorInterpolationFilters="sRGB">
+          <feTurbulence type="turbulence" baseFrequency="0.018 0.022" numOctaves={3} seed={2} result="turb" />
+          <feDisplacementMap in="SourceGraphic" in2="turb" scale={26} xChannelSelector="R" yChannelSelector="G" />
         </filter>
       </svg>
       <nav aria-label="Primary" className="emn-nav relative flex w-full max-w-[1120px] items-center justify-between gap-5 rounded-[18px] py-[11px] pl-5 pr-[14px]">
