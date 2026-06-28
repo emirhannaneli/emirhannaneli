@@ -61,8 +61,8 @@ body {
   position: relative;
   isolation: isolate;
   background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03) 55%);
-  -webkit-backdrop-filter: url(#emn-liquid) blur(2px) saturate(180%) brightness(1.05);
-  backdrop-filter: url(#emn-liquid) blur(2px) saturate(180%) brightness(1.05);
+  -webkit-backdrop-filter: blur(14px) saturate(180%) brightness(1.05);
+  backdrop-filter: blur(14px) saturate(180%) brightness(1.05);
   border: 1px solid rgba(255,255,255,0.22);
   box-shadow:
     0 12px 34px -10px rgba(0,0,0,0.5),
@@ -70,6 +70,14 @@ body {
     inset 0 1px 1.5px rgba(255,255,255,0.55),
     inset 0 -10px 22px -14px rgba(255,255,255,0.22),
     inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+/* Add the SVG refraction only where backdrop-filter supports url() (Chrome/Firefox).
+   Safari keeps the frosted-glass base above — consistent everywhere, lensing where possible. */
+@supports ((backdrop-filter: url(#emn-liquid)) or (-webkit-backdrop-filter: url(#emn-liquid))) {
+  .emn-nav {
+    -webkit-backdrop-filter: url(#emn-liquid) blur(2px) saturate(180%) brightness(1.05);
+    backdrop-filter: url(#emn-liquid) blur(2px) saturate(180%) brightness(1.05);
+  }
 }
 .emn-nav::before {
   content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
