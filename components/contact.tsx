@@ -23,7 +23,7 @@ export function Contact({ content }: { content: SiteContent }) {
               <a href={`tel:${profile.phone.replace(/\s/g, "")}`} className="inline-flex items-center gap-[11px] rounded-[14px] border border-[var(--border-2)] px-[22px] py-[15px] text-[15px] font-semibold no-underline" style={{ background: "var(--chip)", color: "var(--text)" }}><span style={{ color: "var(--accent)" }}>{icons.phone}</span>{profile.phone}</a>
             </div>
             <div className="flex flex-wrap gap-[10px]">
-              {socials.map((s) => (
+              {socials.filter((s) => s.id !== "site").map((s) => (
                 <a key={s.id} href={s.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-[9px] rounded-[12px] border border-[var(--border)] px-4 py-[11px] text-[13.5px] font-medium no-underline transition-transform hover:-translate-y-[2px]" style={{ background: "var(--chip)", color: "var(--text)" }}>
                   <span className="grid place-items-center">{icons[s.icon]}</span>{SOCIAL_LABEL[s.id]}
                   <span className="emn-sr-only">(opens in new tab)</span>
