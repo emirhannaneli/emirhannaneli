@@ -1,10 +1,9 @@
-export const locales = [
-  { code: "en", label: "English", short: "EN", og: "en_US" },
-  { code: "tr", label: "Türkçe", short: "TR", og: "tr_TR" },
-] as const;
+// Locale registry comes from the single site config; helpers derive from it.
+import { locales, defaultLocale } from "@/site.config";
+
+export { locales, defaultLocale };
 
 export type LocaleCode = (typeof locales)[number]["code"];
-export const defaultLocale: LocaleCode = "en";
 export const nonDefaultLocales = locales.filter((l) => l.code !== defaultLocale);
 
 export function hasLocale(x: string): x is LocaleCode {
