@@ -11,10 +11,9 @@ describe("resolveContent", () => {
     expect(resolveContent("tr").nav.about).toBe("Hakkımda");
     expect(resolveContent("tr").projects.viewLabel).toBe("GitHub'da gör");
   });
-  it("falls back to en for any field a locale omits", () => {
+  it("resolveContent('tr') returns a structurally complete SiteContent (all keys present)", () => {
     const tr = resolveContent("tr");
-    // Every project description and experience item exists (TR provides them; if any were
-    // omitted, this still resolves from en — proving fallback completeness):
+    // tr is structurally complete; the genuine fallback path is proven by the partial-locale test below.
     expect(Object.keys(tr.projects.descriptions).sort()).toEqual(
       Object.keys(en.projects.descriptions).sort(),
     );
