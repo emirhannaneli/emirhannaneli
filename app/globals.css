@@ -1,26 +1,118 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-text: var(--text);
+  --font-display: var(--font-display-src);
+  --font-sans: var(--font-sans-src);
+  --font-mono: var(--font-mono-src);
+}
+/* NOTE: next/font loaders use distinct `--font-*-src` variable names; @theme maps the
+   Tailwind tokens (--font-display/-sans/-mono) to them. This generates the bare
+   `font-display` / `font-sans` / `font-mono` utilities AND emits the --font-* vars to
+   :root so the component classes below (var(--font-mono)) and `body` keep working.
+   IMPORTANT: components use the BARE utilities `font-display` / `font-sans` / `font-mono`.
+   Do NOT use the arbitrary form font-[ var(--font-display) ] — in Tailwind v4 a bare
+   var() in that bracket resolves to font-WEIGHT, not font-family, so the typography
+   silently disappears. */
+
+:root,
+[data-theme="dark"] {
+  --bg: #070a11; --bg-2: #0b0f18; --text: #eef1f7; --dim: #9aa6b8; --faint: #5a6678;
+  --panel: rgba(255,255,255,0.045); --panel-2: rgba(255,255,255,0.07); --panel-solid: #0d1320;
+  --border: rgba(255,255,255,0.10); --border-2: rgba(255,255,255,0.18); --spec: rgba(255,255,255,0.22);
+  --accent: #5b8cff; --accent-soft: rgba(91,140,255,0.16); --accent-2: #ff8c6b;
+  --shadow: 0 24px 70px -28px rgba(0,0,0,0.7);
+  --blob-a: rgba(91,140,255,0.22); --blob-b: rgba(255,140,107,0.13); --blob-c: rgba(120,90,255,0.16);
+  --chip: rgba(255,255,255,0.05);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+[data-theme="light"] {
+  --bg: #eef1f8; --bg-2: #e4e9f3; --text: #0f1828; --dim: #46546b; --faint: #8b95a8;
+  --panel: rgba(255,255,255,0.55); --panel-2: rgba(255,255,255,0.72); --panel-solid: #f5f7fc;
+  --border: rgba(255,255,255,0.85); --border-2: rgba(15,24,40,0.10); --spec: rgba(255,255,255,0.9);
+  --accent: #2f63ff; --accent-soft: rgba(47,99,255,0.12); --accent-2: #ef6a45;
+  --shadow: 0 26px 60px -30px rgba(28,40,75,0.32);
+  --blob-a: rgba(47,99,255,0.16); --blob-b: rgba(239,106,69,0.12); --blob-c: rgba(120,90,255,0.12);
+  --chip: rgba(255,255,255,0.55);
 }
 
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  transition: background .5s ease, color .5s ease;
+  overflow-x: hidden;
+}
+::selection { background: var(--accent-soft); color: var(--text); }
+
+/* glass surfaces */
+.emn-panel, .emn-panel-2 {
+  border: 1px solid var(--border); border-radius: 20px;
+  box-shadow: var(--shadow), inset 0 1px 0 var(--spec);
+  background: var(--panel);
+  backdrop-filter: blur(22px) saturate(160%); -webkit-backdrop-filter: blur(22px) saturate(160%);
+}
+.emn-panel-2 { background: var(--panel-2); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .emn-panel, .emn-panel-2 { background: var(--panel-solid); }
+}
+
+/* chips / tags */
+.emn-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 11px; border-radius: 9px; background: var(--chip);
+  border: 1px solid var(--border); font-family: var(--font-mono), monospace;
+  font-size: 11.5px; color: var(--text);
+}
+.emn-skill-chip { padding: 7px 12px; font-size: 12px; transition: border-color .2s; }
+.emn-skill-chip:hover { border-color: var(--accent); }
+.emn-tag { padding: 5px 10px; border-radius: 8px; font-size: 11px; color: var(--dim); }
+.emn-kbadge {
+  display: inline-flex; align-items: center; gap: 9px; padding: 7px 14px; border-radius: 999px;
+  background: var(--chip); border: 1px solid var(--border); font-size: 12.5px; color: var(--dim);
+}
+
+/* accessibility helpers */
+.emn-sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.emn-skip {
+  position: absolute; left: 12px; top: -60px; z-index: 100; padding: 10px 16px;
+  border-radius: 10px; background: var(--accent); color: #fff; transition: top .2s;
+}
+.emn-skip:focus { top: 12px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+/* reveal initial state — JS-gated (the theme script adds `.js`) so no-JS users still see content */
+.js [data-reveal] { opacity: 0; transform: translateY(18px);
+  transition: opacity .55s cubic-bezier(.22,1,.36,1), transform .55s cubic-bezier(.22,1,.36,1); }
+.js [data-reveal].is-visible { opacity: 1; transform: none; }
+
+/* animations */
+@keyframes emnFloatA { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,-30px) scale(1.08); } }
+@keyframes emnFloatB { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px,30px) scale(1.12); } }
+@keyframes emnFloatC { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(30px,40px) scale(1.06); } }
+@keyframes emnMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* pause ambient animations while the tab is hidden (perf; toggled by <AnimPause/>, spec §8/§12) */
+html.emn-anim-paused .emn-blob,
+html.emn-anim-paused .emn-marquee-track { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .emn-blob { animation: none !important; }
+  .emn-marquee-track { animation: none !important; }
+  [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .emn-panel, .emn-panel-2 { background: var(--panel-solid); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+@media (max-width: 860px) {
+  .emn-grid2 { grid-template-columns: 1fr !important; }
+  .emn-nav-links { display: none !important; }
+  .emn-hero-edit { font-size: clamp(52px,16vw,120px) !important; }
 }
