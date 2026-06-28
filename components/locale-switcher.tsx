@@ -12,7 +12,7 @@ export function LocaleSwitcher({ current }: { current: LocaleCode }) {
             key={l.code}
             href={localeHref(l.code)}
             hrefLang={l.code}
-            aria-current={active ? "true" : undefined}
+            aria-current={active ? "page" : undefined}
             className="rounded-[10px] border border-[var(--border)] px-[10px] py-[7px] font-mono text-[12px] font-semibold transition-colors"
             style={{ background: active ? "var(--accent-soft)" : "var(--chip)", color: active ? "var(--accent)" : "var(--dim)" }}
           >

@@ -14,7 +14,7 @@ export function BaseHtml({ lang, children }: { lang: LocaleCode; children: React
     jobTitle: "Backend Developer",
     url: profile.siteUrl,
     image: `${profile.siteUrl}${profile.avatar}`,
-    email: `mailto:${profile.email}`,
+    email: profile.email,
     sameAs: socials.filter((s) => s.id !== "site").map((s) => s.url),
     description: c.about.body,
     inLanguage: lang,

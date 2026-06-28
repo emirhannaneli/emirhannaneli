@@ -9,7 +9,6 @@ import { Projects } from "./projects";
 import { Experience } from "./experience";
 import { Contact } from "./contact";
 import { Footer } from "./footer";
-// Section imports are added by later tasks:
 
 export function Portfolio({ content, locale }: { content: SiteContent; locale: LocaleCode }) {
   return (
@@ -24,7 +23,6 @@ export function Portfolio({ content, locale }: { content: SiteContent; locale: L
           <Projects content={content} />
           <Experience content={content} />
           <Contact content={content} />
-          {/* ... sections added in Tasks 10–15 */}
         </main>
         <Footer content={content} />
       </div>
