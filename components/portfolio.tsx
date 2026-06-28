@@ -1,6 +1,7 @@
 import type { SiteContent } from "@/lib/content";
 import type { LocaleCode } from "@/lib/i18n";
 import { AmbientBg } from "./ambient-bg";
+import { CardGlow } from "./card-glow";
 import { Nav } from "./nav";
 import { HeroEditorial } from "./hero-editorial";
 import { About } from "./about";
@@ -14,6 +15,7 @@ export function Portfolio({ content, locale }: { content: SiteContent; locale: L
   return (
     <div className="relative min-h-screen">
       <AmbientBg />
+      <CardGlow />
       <div className="relative z-[2]">
         <Nav content={content} locale={locale} />
         <main id="main">

@@ -49,12 +49,24 @@ body {
 
 /* glass surfaces */
 .emn-panel, .emn-panel-2 {
+  position: relative;
   border: 1px solid var(--border); border-radius: 20px;
   box-shadow: var(--shadow), inset 0 1px 0 var(--spec);
   background: var(--panel);
   backdrop-filter: blur(22px) saturate(160%); -webkit-backdrop-filter: blur(22px) saturate(160%);
 }
 .emn-panel-2 { background: var(--panel-2); }
+
+/* interactive liquid-glass highlight that follows the pointer (driven by <CardGlow/>) */
+.emn-panel::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(300px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.17), transparent 58%);
+  opacity: 0; transition: opacity .4s ease;
+}
+.emn-panel:hover::after { opacity: 1; }
+[data-theme="light"] .emn-panel::after {
+  background: radial-gradient(260px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.45), transparent 60%);
+}
 
 /* enhanced "liquid glass" for the sticky nav */
 .emn-nav {

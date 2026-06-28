@@ -13,7 +13,7 @@ export function Contact({ content }: { content: SiteContent }) {
     <section id="contact" aria-labelledby="contact-h" className="mx-auto max-w-[1120px] px-[clamp(20px,5vw,48px)] pt-[clamp(48px,7vw,90px)] pb-[clamp(56px,8vw,110px)]">
       <Reveal>
         <div className="emn-panel-2 relative overflow-hidden rounded-[30px] p-[clamp(34px,5vw,64px)]">
-          <div aria-hidden className="pointer-events-none absolute -top-2/4 right-[-10%] h-[160%] w-2/4" style={{ background: "radial-gradient(circle,var(--accent-soft),transparent 65%)" }} />
+          <div aria-hidden className="pointer-events-none absolute -top-1/3 right-[-15%] h-[150%] w-[60%]" style={{ background: "radial-gradient(circle, var(--accent-soft), transparent 70%)", filter: "blur(50px)" }} />
           <div className="relative">
             <div className="mb-[18px] font-mono text-[13px] tracking-[.04em]" style={{ color: "var(--accent)" }}>05 — {contact.kicker}</div>
             <h2 id="contact-h" className="m-0 mb-4 max-w-[14em] font-display text-[clamp(34px,5.5vw,62px)] font-extrabold leading-[1.02] tracking-[-.025em]">{contact.heading}</h2>

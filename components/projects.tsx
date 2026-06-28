@@ -18,7 +18,7 @@ export function Projects({ content }: { content: SiteContent }) {
       <div className="grid gap-[18px]" style={{ gridTemplateColumns: "repeat(auto-fill,minmax(330px,1fr))" }}>
         {projects.map((p) => (
           <Reveal key={p.id}>
-            <a href={p.link} target="_blank" rel="noopener noreferrer" className="emn-panel flex h-full flex-col rounded-[22px] p-[26px] no-underline transition-[transform,border-color] hover:-translate-y-[5px] hover:border-[var(--border-2)]" style={{ color: "var(--text)" }}>
+            <a href={p.link} target="_blank" rel="noopener noreferrer" className="emn-panel flex h-full flex-col rounded-[22px] p-[26px] no-underline transition-[transform,border-color] duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[6px] hover:border-[var(--border-2)]" style={{ color: "var(--text)" }}>
               <div className="mb-[18px] flex items-center justify-between">
                 <span className="inline-flex items-center gap-2 font-mono text-[12px]" style={{ color: "var(--dim)" }}>
                   <span className="h-[9px] w-[9px] rounded-full" style={{ background: p.dotColor }} />{p.lang}
