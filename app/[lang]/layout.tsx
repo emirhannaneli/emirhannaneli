@@ -2,6 +2,9 @@ import "../globals.css";
 import { notFound } from "next/navigation";
 import { BaseHtml } from "@/components/base-html";
 import { hasLocale, nonDefaultLocales } from "@/lib/i18n";
+import { viewport as vp } from "@/lib/seo";
+
+export const viewport = vp;
 
 export const dynamicParams = false;
 export function generateStaticParams() {
