@@ -2,8 +2,8 @@ import type { SiteContent } from "@/lib/content";
 import type { LocaleCode } from "@/lib/i18n";
 import { AmbientBg } from "./ambient-bg";
 import { Nav } from "./nav";
+import { HeroEditorial } from "./hero-editorial";
 // Section imports are added by later tasks:
-// import { HeroEditorial } from "./hero-editorial"; ...
 
 export function Portfolio({ content, locale }: { content: SiteContent; locale: LocaleCode }) {
   return (
@@ -12,8 +12,8 @@ export function Portfolio({ content, locale }: { content: SiteContent; locale: L
       <div className="relative z-[2]">
         <Nav content={content} locale={locale} />
         <main id="main">
-          {/* <HeroEditorial content={content} /> ... sections added in Tasks 10–15 */}
-          <p style={{ padding: 40 }}>{content.meta.title} — {locale}</p>
+          <HeroEditorial content={content} />
+          {/* ... sections added in Tasks 10–15 */}
         </main>
       </div>
     </div>
