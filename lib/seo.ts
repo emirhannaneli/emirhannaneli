@@ -13,10 +13,12 @@ export const viewport: Viewport = {
 
 const KEYWORDS = [
   profile.name, "Emirhan", "Naneli",
+  "Full-Stack Developer", "Full Stack Developer", "Full-Stack Geliştirici",
   "Backend Developer", "Backend Geliştirici", "Software Engineer", "Yazılım Geliştirici",
   "Java", "Kotlin", "Spring Boot", "Spring Cloud", "Microservices", "Mikroservis",
-  "REST API", "GraphQL", "PostgreSQL", "MongoDB", "Redis", "Apache Kafka", "RabbitMQ",
-  "Docker", "Kubernetes", "API", "Türkiye",
+  "REST API", "GraphQL", "PostgreSQL", "Elasticsearch", "MongoDB", "Redis", "Apache Kafka", "RabbitMQ",
+  "TypeScript", "React", "Next.js", "React Native", "Python", "LangChain",
+  "Docker", "Kubernetes", "API", "Moscow", "Moskova", "Türkiye",
 ];
 
 export function localeMetadata(locale: LocaleCode): Metadata {

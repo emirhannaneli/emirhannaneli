@@ -21,6 +21,8 @@ export const profile = {
   avatar: "/avatar.png",
   siteUrl: "https://emirman.dev",
   github: "https://github.com/emirhannaneli",
+  location: "Moscow",
+  countryCode: "RU",
 } as const;
 
 /** Section anchors in the nav (labels are translated in lib/content/*). */
@@ -36,14 +38,15 @@ export const nav = [
 export const stats = [
   { id: "years", value: "4+" },
   { id: "projects", value: "5" },
-  { id: "tech", value: "20+" },
+  { id: "tech", value: "30+" },
 ] as const;
 
 /** Skill groups (group titles are translated in lib/content/*; items are neutral tokens). */
 export const skillGroups = [
   { id: "languages", icon: "layers", items: ["Java", "Kotlin", "Spring Boot", "Spring Data", "Spring Security", "Spring Cloud", "Spring AOP", "Hibernate", "JPA", "OpenFeign"] },
   { id: "apis", icon: "api", items: ["REST", "GraphQL", "WebSocket", "Microservices", "OAuth2", "API Gateway", "Eureka", "Unit Testing"] },
-  { id: "data", icon: "db", items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Apache Kafka", "RabbitMQ"] },
+  { id: "data", icon: "db", items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Elasticsearch", "Apache Kafka", "RabbitMQ"] },
+  { id: "frontend", icon: "globe", items: ["TypeScript", "React", "Next.js", "React Native", "Expo", "Tailwind CSS", "Python", "LangChain"] },
   { id: "devops", icon: "cloud", items: ["Docker", "Kubernetes", "Docker Swarm", "Vault", "Grafana", "Maven", "Gradle", "Git", "Linux"] },
 ] as const satisfies readonly { id: string; icon: IconName; items: readonly string[] }[];
 
@@ -69,7 +72,7 @@ export const socials = [
 ] as const satisfies readonly { id: string; icon: IconName; url: string }[];
 
 /** Scrolling tech ticker in the editorial hero. */
-export const marquee = ["Java", "Kotlin", "Spring Boot", "Microservices", "GraphQL", "PostgreSQL", "Redis", "Kafka", "RabbitMQ", "Docker", "Kubernetes", "Grafana"] as const;
+export const marquee = ["Java", "Kotlin", "Spring Boot", "Microservices", "GraphQL", "PostgreSQL", "Elasticsearch", "Redis", "Kafka", "RabbitMQ", "TypeScript", "React", "Next.js", "React Native", "Python", "Docker", "Kubernetes", "Grafana"] as const;
 
 /**
  * Languages the site is offered in. Add a locale here, then add its dictionary

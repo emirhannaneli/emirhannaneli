@@ -2,30 +2,31 @@ import type { SiteContent } from "./index";
 
 const en: SiteContent = {
   meta: {
-    title: "Emirhan Naneli — Backend Developer",
+    title: "Emirhan Naneli — Full-Stack Developer",
     description:
-      "Backend developer designing scalable microservice architectures and secure, high-performance APIs with Java, Kotlin and Spring Boot.",
+      "Full-stack developer building scalable microservice backends with Kotlin & Spring Boot and shipping the web and mobile products on top with Next.js, React and React Native.",
   },
   nav: { about: "About", skills: "Skills", projects: "Projects", experience: "Experience", contact: "Contact" },
   hero: {
-    kicker: "Based in Türkiye · Open to work",
+    kicker: "Based in Moscow · Full-Stack Developer",
     tagline:
-      "I design scalable microservice architectures and build secure, high-performance APIs with Java, Kotlin and Spring Boot.",
+      "I architect scalable microservices and secure, high-performance APIs with Kotlin & Spring Boot — then build the web and mobile products on top with Next.js, React and React Native.",
     ctaPrimary: "Get in touch",
     ctaSecondary: "Download CV",
   },
   about: {
     heading: "About",
-    body: "Backend developer with 4+ years building scalable microservice architectures, REST & GraphQL APIs, and secure, high-performance systems — mostly in fast-moving startup environments.",
+    body: "Full-stack developer with 4+ years building scalable microservice backends, REST & GraphQL APIs and secure, high-performance systems — and the Next.js / React / React Native products that sit on top. Currently building Turdex, a business management platform, in Moscow.",
   },
   statLabels: { years: "Years of experience", projects: "Featured projects", tech: "Technologies" },
   skills: {
     heading: "Skills & Tools",
-    sub: "The stack I reach for to design, ship and run reliable backend systems.",
+    sub: "The stack I reach for to design, ship and run reliable end-to-end products.",
     groupTitles: {
       languages: "Languages & Frameworks",
       apis: "APIs & Architecture",
       data: "Data & Messaging",
+      frontend: "Frontend & Mobile",
       devops: "DevOps & Tooling",
     },
   },

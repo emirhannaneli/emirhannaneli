@@ -2,30 +2,31 @@ import type { DeepPartial, SiteContent } from "./index";
 
 const tr: DeepPartial<SiteContent> = {
   meta: {
-    title: "Emirhan Naneli — Backend Geliştirici",
+    title: "Emirhan Naneli — Full-Stack Geliştirici",
     description:
-      "Java, Kotlin ve Spring Boot ile ölçeklenebilir mikroservis mimarileri tasarlayan; güvenli, yüksek performanslı API'ler geliştiren backend geliştirici.",
+      "Kotlin & Spring Boot ile ölçeklenebilir mikroservis backend'leri kuran; üzerine Next.js, React ve React Native ile web ve mobil ürünleri geliştiren full-stack geliştirici.",
   },
   nav: { about: "Hakkımda", skills: "Yetenekler", projects: "Projeler", experience: "Deneyim", contact: "İletişim" },
   hero: {
-    kicker: "Türkiye · Yeni projelere açık",
+    kicker: "Moskova · Full-Stack Geliştirici",
     tagline:
-      "Java, Kotlin ve Spring Boot ile ölçeklenebilir mikroservis mimarileri tasarlar; güvenli ve yüksek performanslı API'ler geliştiririm.",
+      "Kotlin & Spring Boot ile ölçeklenebilir mikroservisler ve güvenli, yüksek performanslı API'ler tasarlar; üzerine Next.js, React ve React Native ile web ve mobil ürünleri geliştiririm.",
     ctaPrimary: "İletişime geç",
     ctaSecondary: "CV indir",
   },
   about: {
     heading: "Hakkımda",
-    body: "4+ yıldır ölçeklenebilir mikroservis mimarileri, REST & GraphQL API'leri ve güvenli, yüksek performanslı sistemler geliştiren — çoğunlukla hızlı tempolu startup ortamlarında çalışan bir backend geliştiriciyim.",
+    body: "4+ yıldır ölçeklenebilir mikroservis backend'leri, REST & GraphQL API'leri ve güvenli, yüksek performanslı sistemler — ve üzerlerinde çalışan Next.js / React / React Native ürünlerini geliştiren bir full-stack geliştiriciyim. Şu anda Moskova'da bir iş yönetim platformu olan Turdex'i geliştiriyorum.",
   },
   statLabels: { years: "Yıllık tecrübe", projects: "Öne çıkan proje", tech: "Teknoloji" },
   skills: {
     heading: "Yetenekler & Araçlar",
-    sub: "Güvenilir backend sistemleri tasarlamak, yayınlamak ve işletmek için kullandığım teknolojiler.",
+    sub: "Uçtan uca güvenilir ürünler tasarlamak, yayınlamak ve işletmek için kullandığım teknolojiler.",
     groupTitles: {
       languages: "Diller & Framework'ler",
       apis: "API & Mimari",
       data: "Veri & Mesajlaşma",
+      frontend: "Frontend & Mobil",
       devops: "DevOps & Araçlar",
     },
   },
