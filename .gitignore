@@ -45,3 +45,6 @@ next-env.d.ts
 # local agent instructions (not published)
 /CLAUDE.md
 /AGENTS.md
+
+# playwright mcp artifacts
+/.playwright-mcp/
