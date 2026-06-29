@@ -1,13 +1,19 @@
 # syntax=docker/dockerfile:1
 # Multi-stage build for the Next.js 16 (standalone) portfolio.
 
-FROM node:22-alpine AS base
+FROM node:22-slim AS base
 WORKDIR /app
 
 # --- Install dependencies ---
 FROM base AS deps
 COPY package.json package-lock.json* ./
-RUN npm ci
+# The committed lockfile is generated on Windows, so it only records the
+# win32 native optional packages — the Linux builds of lightningcss and
+# @tailwindcss/oxide (needed by Tailwind v4) are absent from its tree. Both
+# `npm ci` and `npm install` honor that incomplete tree and skip them, which
+# breaks `next build`. Drop the lock so npm resolves the linux-x64-gnu
+# binaries fresh for this image.
+RUN rm -f package-lock.json && npm install --no-audit --no-fund
 
 # --- Build ---
 FROM base AS builder
@@ -22,7 +28,7 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
-RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
+RUN groupadd --system --gid 1001 nodejs && useradd --system --uid 1001 --gid nodejs nextjs
 
 # standalone output bundles only what the server needs
 COPY --from=builder /app/public ./public
