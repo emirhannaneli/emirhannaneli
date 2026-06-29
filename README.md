@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="center">Hi 👋, I'm Emir</h1>
+<h3 align="center">A passionate backend developer from Turkey</h3>
 
-## Getting Started
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=emirhannaneli&label=Profile%20views&color=0e75b6&style=flat" alt="emirhannaneli" /> </p>
 
-First, run the development server:
+- 🌱 I’m currently learning **Backend Development**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 💬 Ask me about **spring boot, java, kotlin**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 📫 How to reach me **emirhannaneli@gmail.com**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<h3 align="left">Connect with me:</h3>
+<p align="left">
+<a href="https://www.linkedin.com/in/emirhannaneli/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="emirhannaneli" height="30" width="40" /></a>
+<a href="https://stackoverflow.com/users/18353450" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg" alt="18353450" height="30" width="40" /></a>
+<a href="https://instagram.com/emirhnnaneli" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="emirhnnaneli" height="30" width="40" /></a>
+<a href="https://discord.gg/Emirman#1881" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg" alt="Emirman#1881" height="30" width="40" /></a>
+</p>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<h3 align="left">Languages and Tools:</h3>
+<p>
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=java,kotlin,spring,gradle,maven,postman,selenium,graphql,kafka,rabbitmq,mongo,redis,postgres,mysql,apollo,docker,kubernetes,prometheus,grafana,python,js,ts,react,nextjs,linux,bash,git" />
+  </a>
+</p>
 
-## Learn More
+<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=emirhannaneli&show_icons=true&locale=en" alt="emirhannaneli" /></p>
 
-To learn more about Next.js, take a look at the following resources:
+<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=emirhannaneli" alt="emirhannaneli" /></p>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=emirhannaneli&show_icons=true&locale=en&layout=compact" alt="emirhannaneli" /></p>
