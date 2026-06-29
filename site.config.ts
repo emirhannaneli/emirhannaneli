@@ -57,7 +57,7 @@ export const projects = [
 ] as const;
 
 /** Experience entries — ids + order; all text is translated in lib/content/* by id. */
-export const experience = [{ id: "opensource" }, { id: "saganetwork" }, { id: "education" }] as const;
+export const experience = [{ id: "turdex" }, { id: "opensource" }, { id: "saganetwork" }, { id: "education" }] as const;
 
 /** Social links (labels live in components/contact.tsx; icons are keys of lib/icons.tsx). */
 export const socials = [
