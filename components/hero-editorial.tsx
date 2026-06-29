@@ -17,8 +17,8 @@ export function HeroEditorial({ content }: { content: SiteContent }) {
       </Reveal>
       <Reveal delay={60}>
         <h1 className="emn-hero-edit m-0 mb-[26px] font-display font-extrabold leading-[.9] tracking-[-.04em]" style={{ fontSize: "clamp(56px,11vw,150px)" }}>
-          <span className="emn-sr-only">{profile.name} — Backend Developer</span>
-          <span aria-hidden>Backend<br /><span style={{ color: "transparent", WebkitTextStroke: "1.5px var(--text)" }}>Developer</span></span>
+          <span className="emn-sr-only">{profile.name} — Full-Stack Developer</span>
+          <span aria-hidden>Full-Stack<br /><span style={{ color: "transparent", WebkitTextStroke: "1.5px var(--text)" }}>Developer</span></span>
         </h1>
       </Reveal>
       <div className="emn-grid2 grid items-end gap-9" style={{ gridTemplateColumns: "1.1fr 1fr" }}>
