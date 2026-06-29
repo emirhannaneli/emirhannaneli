@@ -41,3 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 /docs
+
+# local agent instructions (not published)
+/CLAUDE.md
+/AGENTS.md
