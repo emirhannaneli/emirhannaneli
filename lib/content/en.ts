@@ -8,7 +8,7 @@ const en: SiteContent = {
   },
   nav: { about: "About", skills: "Skills", projects: "Projects", experience: "Experience", contact: "Contact" },
   hero: {
-    kicker: "Based in Moscow · Full-Stack Developer",
+    kicker: "Based in Türkiye · Full-Stack Developer",
     tagline:
       "I architect scalable microservices and secure, high-performance APIs with Kotlin & Spring Boot — then build the web and mobile products on top with Next.js, React and React Native.",
     ctaPrimary: "Get in touch",
@@ -16,7 +16,7 @@ const en: SiteContent = {
   },
   about: {
     heading: "About",
-    body: "Full-stack developer with 4+ years building scalable microservice backends, REST & GraphQL APIs and secure, high-performance systems — and the Next.js / React / React Native products that sit on top. Currently building Turdex, a business management platform, in Moscow.",
+    body: "Full-stack developer with 4+ years building scalable microservice backends, REST & GraphQL APIs and secure, high-performance systems — and the Next.js / React / React Native products that sit on top. Currently building Turdex, a Moscow-based business management platform, remotely from Türkiye.",
   },
   statLabels: { years: "Years of experience", projects: "Featured projects", tech: "Technologies" },
   skills: {
@@ -45,7 +45,7 @@ const en: SiteContent = {
   experience: {
     heading: "Experience",
     items: {
-      turdex: { tag: "Work", period: "2025 — Present", role: "Full-Stack Developer", org: "Turdex · Moscow", desc: "Building Turdex, a full-stack business management platform spanning stock, HR, finance, jobs and document management. Backend in Kotlin on Spring Boot 4 with PostgreSQL & Elasticsearch, exposing REST and GraphQL APIs; web apps (admin + customer portal) in Next.js 16 / React 19; a React Native (Expo) mobile ops app; and Python AI agents (LangChain) for automated document extraction." },
+      turdex: { tag: "Work", period: "2025 — Present", role: "Full-Stack Developer", org: "Turdex · Moscow (Remote)", desc: "Working remotely from Türkiye on Turdex, a full-stack business management platform spanning stock, HR, finance, jobs and document management. Backend in Kotlin on Spring Boot 4 with PostgreSQL & Elasticsearch, exposing REST and GraphQL APIs; web apps (admin + customer portal) in Next.js 16 / React 19; a React Native (Expo) mobile ops app; and Python AI agents (LangChain) for automated document extraction." },
       opensource: { tag: "Open Source", period: "2024 — 2025", role: "Open Source & Indie Development", org: "Self-employed", desc: "Building reusable Spring Boot libraries, payment SDKs and developer tools — several published as packages and used in production." },
       saganetwork: { tag: "Work", period: "2022 — 2024", role: "Backend Developer", org: "Saganetwork Telekomünikasyon A.Ş · Balıkesir", desc: "Built ERP, CRM, social media and marketing platforms with Java & Kotlin on Spring Boot. Designed microservice architectures with REST, GraphQL & WebSocket APIs, JPA (PostgreSQL/MySQL) and NoSQL (MongoDB/Redis); implemented Spring Cloud Gateway, OAuth2, OpenFeign, Kafka & RabbitMQ; containerised with Docker + Vault; handled load balancing via Docker Swarm & Eureka and monitored with Grafana." },
       education: { tag: "Education", period: "2023 — Present", role: "Computer Programming (Associate)", org: "Bandırma Onyedi Eylül University · Gönen V.S.", desc: "Studying software development fundamentals, algorithms and database systems." },

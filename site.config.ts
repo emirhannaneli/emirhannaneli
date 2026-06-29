@@ -21,8 +21,7 @@ export const profile = {
   avatar: "/avatar.png",
   siteUrl: "https://emirman.dev",
   github: "https://github.com/emirhannaneli",
-  location: "Moscow",
-  countryCode: "RU",
+  countryCode: "TR",
 } as const;
 
 /** Section anchors in the nav (labels are translated in lib/content/*). */

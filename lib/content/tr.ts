@@ -8,7 +8,7 @@ const tr: DeepPartial<SiteContent> = {
   },
   nav: { about: "Hakkımda", skills: "Yetenekler", projects: "Projeler", experience: "Deneyim", contact: "İletişim" },
   hero: {
-    kicker: "Moskova · Full-Stack Geliştirici",
+    kicker: "Türkiye · Full-Stack Geliştirici",
     tagline:
       "Kotlin & Spring Boot ile ölçeklenebilir mikroservisler ve güvenli, yüksek performanslı API'ler tasarlar; üzerine Next.js, React ve React Native ile web ve mobil ürünleri geliştiririm.",
     ctaPrimary: "İletişime geç",
@@ -16,7 +16,7 @@ const tr: DeepPartial<SiteContent> = {
   },
   about: {
     heading: "Hakkımda",
-    body: "4+ yıldır ölçeklenebilir mikroservis backend'leri, REST & GraphQL API'leri ve güvenli, yüksek performanslı sistemler — ve üzerlerinde çalışan Next.js / React / React Native ürünlerini geliştiren bir full-stack geliştiriciyim. Şu anda Moskova'da bir iş yönetim platformu olan Turdex'i geliştiriyorum.",
+    body: "4+ yıldır ölçeklenebilir mikroservis backend'leri, REST & GraphQL API'leri ve güvenli, yüksek performanslı sistemler — ve üzerlerinde çalışan Next.js / React / React Native ürünlerini geliştiren bir full-stack geliştiriciyim. Şu anda Moskova merkezli bir iş yönetim platformu olan Turdex'i Türkiye'den uzaktan geliştiriyorum.",
   },
   statLabels: { years: "Yıllık tecrübe", projects: "Öne çıkan proje", tech: "Teknoloji" },
   skills: {
@@ -45,7 +45,7 @@ const tr: DeepPartial<SiteContent> = {
   experience: {
     heading: "Deneyim",
     items: {
-      turdex: { tag: "İş", period: "2025 — Günümüz", role: "Full-Stack Geliştirici", org: "Turdex · Moskova", desc: "Stok, İK, finans, iş emri ve doküman yönetimini kapsayan tam yığın iş yönetim platformu Turdex'i geliştiriyorum. Kotlin & Spring Boot 4 ile PostgreSQL ve Elasticsearch üzerinde REST ve GraphQL API'ler; Next.js 16 / React 19 ile web uygulamaları (yönetim paneli + müşteri portalı); React Native (Expo) ile mobil saha uygulaması; ve otomatik doküman çıkarımı için Python yapay zekâ ajanları (LangChain) geliştiriyorum." },
+      turdex: { tag: "İş", period: "2025 — Günümüz", role: "Full-Stack Geliştirici", org: "Turdex · Moskova (Uzaktan)", desc: "Stok, İK, finans, iş emri ve doküman yönetimini kapsayan tam yığın iş yönetim platformu Turdex'te Türkiye'den uzaktan çalışıyorum. Kotlin & Spring Boot 4 ile PostgreSQL ve Elasticsearch üzerinde REST ve GraphQL API'ler; Next.js 16 / React 19 ile web uygulamaları (yönetim paneli + müşteri portalı); React Native (Expo) ile mobil saha uygulaması; ve otomatik doküman çıkarımı için Python yapay zekâ ajanları (LangChain) geliştiriyorum." },
       opensource: { tag: "Açık Kaynak", period: "2024 — 2025", role: "Açık Kaynak & Bağımsız Geliştirme", org: "Bağımsız", desc: "Yeniden kullanılabilir Spring Boot kütüphaneleri, ödeme SDK'ları ve geliştirici araçları geliştiriyorum — birçoğu paket olarak yayınlandı ve üretimde kullanılıyor." },
       saganetwork: { tag: "İş", period: "2022 — 2024", role: "Backend Geliştirici", org: "Saganetwork Telekomünikasyon A.Ş · Balıkesir", desc: "Java ve Kotlin ile Spring Boot üzerinde ERP, CRM, sosyal medya ve pazarlama platformları geliştirdim. REST, GraphQL & WebSocket API'leri, JPA (PostgreSQL/MySQL) ve NoSQL (MongoDB/Redis) ile mikroservis mimarileri tasarladım; Spring Cloud Gateway, OAuth2, OpenFeign, Kafka & RabbitMQ entegre ettim; Docker + Vault ile konteynerize ettim; Docker Swarm & Eureka ile yük dengeledim ve Grafana ile izledim." },
       education: { tag: "Eğitim", period: "2023 — Günümüz", role: "Bilgisayar Programcılığı (Ön Lisans)", org: "Bandırma Onyedi Eylül Üniversitesi · Gönen MYO", desc: "Yazılım geliştirme temelleri, algoritmalar ve veritabanı sistemleri üzerine eğitim." },

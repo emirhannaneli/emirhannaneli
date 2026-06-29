@@ -18,7 +18,7 @@ const KEYWORDS = [
   "Java", "Kotlin", "Spring Boot", "Spring Cloud", "Microservices", "Mikroservis",
   "REST API", "GraphQL", "PostgreSQL", "Elasticsearch", "MongoDB", "Redis", "Apache Kafka", "RabbitMQ",
   "TypeScript", "React", "Next.js", "React Native", "Python", "LangChain",
-  "Docker", "Kubernetes", "API", "Moscow", "Moskova", "Türkiye",
+  "Docker", "Kubernetes", "API", "Türkiye", "Remote",
 ];
 
 export function localeMetadata(locale: LocaleCode): Metadata {
